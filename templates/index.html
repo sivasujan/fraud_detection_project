@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Credit Card Fraud Detection</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins', sans-serif;
+}
+
+body{
+background: linear-gradient(135deg,#1f4037,#99f2c8);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
+/* MAIN CARD */
+
+.container{
+background:white;
+padding:50px;
+border-radius:15px;
+width:500px;
+box-shadow:0 20px 40px rgba(0,0,0,0.2);
+text-align:center;
+animation:fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn{
+from{opacity:0; transform:translateY(20px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+h1{
+margin-bottom:30px;
+color:#333;
+font-weight:600;
+}
+
+/* INPUT BOX STYLE */
+
+input{
+width:100%;
+padding:18px;
+margin:12px 0;
+border-radius:10px;
+border:2px solid #e0e0e0;
+font-size:17px;
+background:#fafafa;
+transition:0.3s;
+}
+
+/* INPUT FOCUS */
+
+input:focus{
+outline:none;
+border-color:#4CAF50;
+background:#ffffff;
+box-shadow:0 0 8px rgba(76,175,80,0.4);
+}
+
+/* BUTTON STYLE */
+
+button{
+width:100%;
+margin-top:20px;
+padding:16px;
+border:none;
+border-radius:10px;
+font-size:18px;
+font-weight:600;
+color:white;
+cursor:pointer;
+background:linear-gradient(45deg,#4CAF50,#2E7D32);
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* RESULT TEXT */
+
+.result{
+margin-top:30px;
+font-size:24px;
+font-weight:600;
+padding:15px;
+border-radius:8px;
+}
+
+.fraud{
+background:#ffe5e5;
+color:#d50000;
+}
+
+.genuine{
+background:#e8f5e9;
+color:#2e7d32;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💳 Fraud Detection System</h1>
+
+<form action="/predict" method="post">
+
+<input type="number" step="any" name="time" placeholder="Transaction Time" required>
+
+<input type="number" step="any" name="v1" placeholder="V1 Feature" required>
+
+<input type="number" step="any" name="v2" placeholder="V2 Feature" required>
+
+<input type="number" step="any" name="v3" placeholder="V3 Feature" required>
+
+<input type="number" step="any" name="amount" placeholder="Transaction Amount" required>
+
+<button type="submit">Detect Fraud</button>
+
+</form>
+
+{% if prediction %}
+
+<div class="result 
+{% if 'Fraud' in prediction %}
+fraud
+{% else %}
+genuine
+{% endif %}
+">
+
+{{ prediction }}
+
+</div>
+
+{% endif %}
+
+</div>
+
+</body>
+</html>
